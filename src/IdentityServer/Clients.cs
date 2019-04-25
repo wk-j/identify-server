@@ -66,8 +66,6 @@ namespace IdentityServer {
                     AllowedScopes = new List<string>  { "customAPI.read"}
                 }
             };
-
         }
     }
-
 }

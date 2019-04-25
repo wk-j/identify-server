@@ -44,6 +44,7 @@ namespace IdentityServer {
 
             // app.UseHttpsRedirection();
             app.UseIdentityServer();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
