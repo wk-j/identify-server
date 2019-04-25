@@ -1,5 +1,3 @@
-## Identify Server
+## Identity Server
 
-```bash
-dotnet new is4aspid -n src/IdentifyServer
-```
+- [Identity & Access Control](https://www.scottbrady91.com/Identity-Server/Getting-Started-with-IdentityServer-4)

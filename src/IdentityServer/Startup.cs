@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.Models;
+using IdentityServer4.Test;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -20,7 +22,17 @@ namespace IdentifyServer {
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services) {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services
+                .AddIdentityServer()
+                .AddInMemoryClients(new List<Client>())
+                .AddInMemoryIdentityResources(new List<IdentityResource>())
+                .AddInMemoryApiResources(new List<ApiResource>())
+                .AddTestUsers(new List<TestUser>())
+                .AddDeveloperSigningCredential();
+
+            services
+                .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
@@ -30,7 +42,8 @@ namespace IdentifyServer {
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
+            app.UseIdentityServer();
             app.UseMvc();
         }
     }
