@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace IdentifyServer {
+namespace IdentityServer {
     public class Startup {
         public Startup(IConfiguration configuration) {
             Configuration = configuration;
@@ -24,10 +24,10 @@ namespace IdentifyServer {
         public void ConfigureServices(IServiceCollection services) {
             services
                 .AddIdentityServer()
-                .AddInMemoryClients(new List<Client>())
-                .AddInMemoryIdentityResources(new List<IdentityResource>())
-                .AddInMemoryApiResources(new List<ApiResource>())
-                .AddTestUsers(new List<TestUser>())
+                .AddInMemoryClients(Clients.Get())
+                .AddInMemoryIdentityResources(Resources.GetIdentityResources())
+                .AddInMemoryApiResources(Resources.GetApiResources())
+                .AddTestUsers(Users.Get())
                 .AddDeveloperSigningCredential();
 
             services

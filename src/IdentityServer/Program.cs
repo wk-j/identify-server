@@ -8,12 +8,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace IdentifyServer
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
+namespace IdentityServer {
+    public class Program {
+        public static void Main(string[] args) {
             CreateWebHostBuilder(args).Build().Run();
         }
 
