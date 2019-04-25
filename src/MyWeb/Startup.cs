@@ -29,8 +29,12 @@ namespace MyWeb {
                 o.Authority = "http://localhost:5000";
                 o.Audience = "customAPI";
                 o.RequireHttpsMetadata = false;
+            }).AddOpenIdConnect("oidc", options => {
+                options.Authority = "http://localhost:5000";
+                options.RequireHttpsMetadata = false;
+                options.ClientId = "oauthClient";
+                options.SaveTokens = true;
             });
-
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -44,8 +48,8 @@ namespace MyWeb {
             }
 
             // app.UseHttpsRedirection();
-            app.UseMvc();
             app.UseAuthentication();
+            app.UseMvc();
         }
     }
 }

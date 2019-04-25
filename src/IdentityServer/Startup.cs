@@ -32,6 +32,7 @@ namespace IdentityServer {
                 .AddTestUsers(Users.Get())
                 .AddDeveloperSigningCredential();
 
+
             services.AddAuthentication(options => {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
