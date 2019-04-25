@@ -59,7 +59,7 @@ namespace IdentityServer {
                 new Client {
                     ClientId  = "oauthClient",
                     ClientName = "Example Client Credentials Client Application",
-                    AllowedGrantTypes = new [] { GrantType.ClientCredentials },
+                    AllowedGrantTypes = new [] { GrantType.ClientCredentials, GrantType.ResourceOwnerPassword },
                     ClientSecrets = new List<Secret> {
                         new Secret("superSecretPassword".Sha256())
                     },
