@@ -55,6 +55,7 @@ namespace GitHub {
                         response.EnsureSuccessStatusCode();
 
                         var user = JObject.Parse(await response.Content.ReadAsStringAsync());
+                        Console.WriteLine(user.ToString());
                         context.RunClaimActions(user);
                     }
                 };

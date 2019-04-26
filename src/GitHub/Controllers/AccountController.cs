@@ -7,6 +7,5 @@ namespace GitHub.Controllers {
         public IActionResult Login(string returnUrl = "/") {
             return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
         }
-
     }
 }
