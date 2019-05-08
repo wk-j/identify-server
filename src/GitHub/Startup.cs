@@ -34,7 +34,7 @@ namespace GitHub {
             .AddOAuth("GitHub", options => {
                 options.ClientId = "9f18bf43ed3bce16e685";
                 options.ClientSecret = "78331982064908b8a16725e44843e23481fbae46";
-                options.CallbackPath = new Microsoft.AspNetCore.Http.PathString("/signin-github");
+                options.CallbackPath = new Microsoft.AspNetCore.Http.PathString("/signin-gg");
                 options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
                 options.TokenEndpoint = "https://github.com/login/oauth/access_token";
                 options.UserInformationEndpoint = "https://api.github.com/user";
