@@ -1,2 +1,2 @@
 GET http://localhost:5000/api/hello/hello
-Authorization: Bearer 590731a44968776a680c435d55fded89b79dee8a
+Authorization: Bearer 6a10af10789dbc0d6300408c6da3a175432e03a5

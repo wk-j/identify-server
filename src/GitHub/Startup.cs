@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Logging;
 using Newtonsoft.Json.Linq;
 
 namespace GitHub {
@@ -34,7 +35,7 @@ namespace GitHub {
             })
             .AddCookie()
             // .AddJwtBearer(cfg => {
-            //     cfg.RequireHttpsMetadata = true;
+            //     cfg.RequireHttpsMetadata = false;
             //     cfg.Authority = "https://github.com/login/oauth/authorize";
             //     cfg.IncludeErrorDetails = true;
             //     cfg.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters() {
@@ -42,7 +43,7 @@ namespace GitHub {
             //         ValidateIssuerSigningKey = true,
             //         ValidateIssuer = true,
             //         ValidIssuer = "https://github.com/login/oauth/authorize",
-            //         ValidateLifetime = true
+            //         ValidateLifetime = true,
             //     };
             //     cfg.Events = new JwtBearerEvents() {
             //         OnAuthenticationFailed = c => {
@@ -66,6 +67,8 @@ namespace GitHub {
                 options.ClaimActions.MapJsonKey("urn:github:login", "login");
                 options.ClaimActions.MapJsonKey("urn:github:url", "html_url");
                 options.ClaimActions.MapJsonKey("urn:github:avatar", "avatar_url");
+
+                options.SaveTokens = true;
 
                 options.Events = new Microsoft.AspNetCore.Authentication.OAuth.OAuthEvents {
                     OnCreatingTicket = async context => {
@@ -94,6 +97,8 @@ namespace GitHub {
             } else {
                 app.UseHsts();
             }
+
+            IdentityModelEventSource.ShowPII = true;
 
             // app.UseHttpsRedirection();
             app.UseAuthentication();

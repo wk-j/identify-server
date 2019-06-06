@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace GitHub.Controllers.Hello {
     [Route("api/[controller]/[action]")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class HelloController : ControllerBase {
 
         [HttpGet]
@@ -22,5 +22,11 @@ namespace GitHub.Controllers.Hello {
 
             return "Hello";
         }
+    }
+
+    [Route("api/[action]/[controller]")]
+    [Authorize]
+    public class AController : ControllerBase {
+        public string A() => "A";
     }
 }
