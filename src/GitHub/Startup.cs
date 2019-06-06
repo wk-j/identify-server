@@ -6,8 +6,10 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +33,26 @@ namespace GitHub {
                 options.DefaultChallengeScheme = "GitHub";
             })
             .AddCookie()
+            // .AddJwtBearer(cfg => {
+            //     cfg.RequireHttpsMetadata = true;
+            //     cfg.Authority = "https://github.com/login/oauth/authorize";
+            //     cfg.IncludeErrorDetails = true;
+            //     cfg.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters() {
+            //         ValidateAudience = false,
+            //         ValidateIssuerSigningKey = true,
+            //         ValidateIssuer = true,
+            //         ValidIssuer = "https://github.com/login/oauth/authorize",
+            //         ValidateLifetime = true
+            //     };
+            //     cfg.Events = new JwtBearerEvents() {
+            //         OnAuthenticationFailed = c => {
+            //             c.NoResult();
+            //             c.Response.StatusCode = 401;
+            //             c.Response.ContentType = "text/plain";
+            //             return c.Response.WriteAsync(c.Exception.ToString());
+            //         }
+            //     };
+            // })
             .AddOAuth("GitHub", options => {
                 options.ClientId = "9f18bf43ed3bce16e685";
                 options.ClientSecret = "78331982064908b8a16725e44843e23481fbae46";
@@ -53,6 +75,8 @@ namespace GitHub {
 
                         var response = await context.Backchannel.SendAsync(request, HttpCompletionOption.ResponseContentRead, context.HttpContext.RequestAborted);
                         response.EnsureSuccessStatusCode();
+
+                        Console.WriteLine("Token = {0}", context.AccessToken);
 
                         var user = JObject.Parse(await response.Content.ReadAsStringAsync());
                         Console.WriteLine(user.ToString());

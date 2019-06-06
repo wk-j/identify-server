@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace GitHub.Controllers {
+namespace GitHub.Controllers.Hello {
     [Route("api/[controller]/[action]")]
     [Authorize]
     public class HelloController : ControllerBase {
 
         [HttpGet]
-        public string Hi() {
+        public string Hello() {
             var settings = new JsonSerializerSettings {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             };
